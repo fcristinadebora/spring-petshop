@@ -4,33 +4,32 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Categoria implements Serializable {
+public class Raca implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String descricao;
 	
-	@ManyToMany(mappedBy = "categorias")
-	private List<Produto> produtos = new ArrayList<>();
+	@OneToMany(mappedBy = "raca")
+	private List<Pet> pets = new ArrayList<>();
 	
-	public Categoria() {
-		
-	}
+	public Raca() {}
 
-	public Categoria(Integer id, String nome) {
+	public Raca(Integer id, String descricao) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.descricao = descricao;
 	}
 
 	@Override
@@ -46,7 +45,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Raca other = (Raca) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -58,21 +57,19 @@ public class Categoria implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<Pet> getPets() {
+		return pets;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
 	}
-	
-	
 }
