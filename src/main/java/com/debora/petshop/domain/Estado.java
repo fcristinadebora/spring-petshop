@@ -14,25 +14,27 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Raca implements Serializable {
+public class Estado  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String descricao;
+	private String nome;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "raca")
-	private List<Pet> pets = new ArrayList<>();
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<>();
 	
-	public Raca() {}
-
-	public Raca(Integer id, String descricao) {
+	public Estado() {
+		
+	}
+	
+	public Estado(Integer id, String nome) {
 		super();
 		this.id = id;
-		this.descricao = descricao;
+		this.nome = nome;
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class Raca implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Raca other = (Raca) obj;
+		Estado other = (Estado) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -60,19 +62,19 @@ public class Raca implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public List<Pet> getPets() {
-		return pets;
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
 
-	public void setPets(List<Pet> pets) {
-		this.pets = pets;
-	}
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
+	}	
 }

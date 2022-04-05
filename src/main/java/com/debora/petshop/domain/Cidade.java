@@ -9,30 +9,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Raca implements Serializable {
-	
+public class Cidade implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String descricao;
+	private String nome;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_estado")
+	private Estado estado;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "raca")
-	private List<Pet> pets = new ArrayList<>();
-	
-	public Raca() {}
+	@OneToMany(mappedBy = "cidade")
+	private List<Endereco> enderecos = new ArrayList<>();
 
-	public Raca(Integer id, String descricao) {
+	public Cidade() {
+
+	}
+
+	public Cidade(Integer id, String nome, Estado estado) {
 		super();
 		this.id = id;
-		this.descricao = descricao;
+		this.nome = nome;
+		this.estado = estado;
 	}
 
 	@Override
@@ -48,7 +57,7 @@ public class Raca implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Raca other = (Raca) obj;
+		Cidade other = (Cidade) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -60,19 +69,28 @@ public class Raca implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public List<Pet> getPets() {
-		return pets;
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public void setPets(List<Pet> pets) {
-		this.pets = pets;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 }
